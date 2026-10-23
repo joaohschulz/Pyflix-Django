@@ -1,117 +1,157 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>{% block title %}PyFlix{% endblock %}</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,700;12..96,800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="{% static 'css/base_plataform.css' %}">
-{% block extra_head %}{% endblock %}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}PyFlix{% endblock %}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,700;12..96,800&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'css/base_plataform.css' %}">
+  <link rel="stylesheet" href="{% static 'css/modal_filme.css' %}">
+  {% block extra_head %}{% endblock %}
 </head>
+
 <body>
 
-<header class="topo">
-  <a class="marca" href="#">
-    <span class="marca-icone" aria-hidden="true">
-      <svg viewBox="0 0 16 16"><path d="M0 0l16 8-16 8z"/></svg>
-    </span>
-    <span class="marca-nome">PyFlix</span>
-  </a>
+  <header class="topo">
+    <a href="/" class="marca">
+      <span class="marca-icone">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M5 3l16 9-16 9z" />
+        </svg>
+      </span>
+      <span class="marca-nome">PyFlix</span>
+    </a>
 
-  <nav class="menu" aria-label="Principal">
-    <a href="#" class="ativo">Início</a>
-    <a href="#">Séries</a>
-    <a href="#">Filmes</a>
-  </nav>
+    <nav class="menu">
+      <a href="#" class="ativo">Início</a>
+      <a href="#">Filmes</a>
+      <a href="#">Séries</a>
+    </nav>
 
-  <div class="topo-acoes">
-    <!-- Campo de busca -->
-    <div class="busca"></div>
-    <!-- Perfil / menu do usuário -->
-    <div class="perfil"></div>
-  </div>
-</header>
-
-<main>
-{% block content %}
-
-  <!-- ===== Destaque ===== -->
-  <section class="destaque">
-    <div class="destaque-conteudo">
-      <span class="selo">Em destaque</span>
-      <h1>Título do destaque</h1>
-      <p>Sinopse curta do filme ou série em destaque. Duas ou três linhas já bastam para prender a atenção.</p>
-      <div class="destaque-botoes">
-        <a class="btn btn-claro" href="#">
-          <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 0l13 8-13 8z"/></svg>
-          Assistir
-        </a>
-        <a class="btn btn-vidro" href="#">Mais informações</a>
+    <div class="topo-acoes">
+      <!-- Campo de busca -->
+      <div class="busca">
+        <form action="/buscar" method="get" role="search">
+          <label for="campo-busca" class="sr-only">Pesquisar</label>
+          <svg class="busca-icone" viewBox="0 0 24 24" aria-hidden="true">
+            <path
+              d="M10 2a8 8 0 1 0 4.9 14.3l5.4 5.4 1.4-1.4-5.4-5.4A8 8 0 0 0 10 2zm0 2a6 6 0 1 1 0 12 6 6 0 0 1 0-12z" />
+          </svg>
+          <input type="search" name="q" id="campo-busca" placeholder="Digite sua busca...">
+          <button type="submit">Buscar</button>
+        </form>
       </div>
+
+      <!-- Perfil / menu do usuário -->
+      {% if user.is_authenticated %}
+      <div class="perfil">
+        <span class="perfil-avatar">{{ user.username|first|upper }}</span>
+        <span class="perfil-nome">{{ user.first_name|default:user.username }}</span>
+      </div>
+      {% endif %}
     </div>
-  </section>
+  </header>
 
-  <!-- ===== Fileira: Em alta ===== -->
-  <section class="fileira">
-    <h2>Em alta</h2>
-    <div class="trilho">
-      {# {% for item in em_alta %} ... {% endfor %} #}
-      <!-- Para usar capa real: <div class="poster"><img src="{{ item.capa.url }}" alt=""></div> -->
-      <a class="card" href="#"><div class="poster a"></div><span class="card-titulo">Título</span></a>
-      <a class="card" href="#"><div class="poster b"></div><span class="card-titulo">Título</span></a>
-      <a class="card" href="#"><div class="poster c"></div><span class="card-titulo">Título</span></a>
-      <a class="card" href="#"><div class="poster d"></div><span class="card-titulo">Título</span></a>
-      <a class="card" href="#"><div class="poster e"></div><span class="card-titulo">Título</span></a>
-      <a class="card" href="#"><div class="poster f"></div><span class="card-titulo">Título</span></a>
-      <a class="card" href="#"><div class="poster a"></div><span class="card-titulo">Título</span></a>
-      <a class="card" href="#"><div class="poster b"></div><span class="card-titulo">Título</span></a>
-    </div>
-  </section>
+  <main>
+    {% block content %}
 
-  <!-- ===== Fileira: Séries ===== -->
-  <section class="fileira">
-    <h2>Séries</h2>
-    <div class="trilho">
-      <a class="card" href="#"><div class="poster e"></div><span class="card-titulo">Título</span></a>
-      <a class="card" href="#"><div class="poster d"></div><span class="card-titulo">Título</span></a>
-      <a class="card" href="#"><div class="poster f"></div><span class="card-titulo">Título</span></a>
-      <a class="card" href="#"><div class="poster a"></div><span class="card-titulo">Título</span></a>
-      <a class="card" href="#"><div class="poster c"></div><span class="card-titulo">Título</span></a>
-      <a class="card" href="#"><div class="poster b"></div><span class="card-titulo">Título</span></a>
-      <a class="card" href="#"><div class="poster d"></div><span class="card-titulo">Título</span></a>
-      <a class="card" href="#"><div class="poster e"></div><span class="card-titulo">Título</span></a>
-    </div>
-  </section>
+    <!-- ===== Destaque ===== -->
+    <section class="destaque">
+      <div class="destaque-conteudo">
+        <span class="selo">Em destaque</span>
+        <h1>Título do destaque</h1>
+        <p>Sinopse curta do filme ou série em destaque. Duas ou três linhas já bastam para prender a atenção.</p>
+        <div class="destaque-botoes">
+          <a class="btn btn-claro" href="#">
+            <svg viewBox="0 0 16 16" aria-hidden="true">
+              <path d="M2 0l13 8-13 8z" />
+            </svg>
+            Assistir
+          </a>
+          <a class="btn btn-vidro" href="#">Mais informações</a>
+        </div>
+      </div>
+    </section>
 
-  <!-- ===== Fileira: Filmes ===== -->
-  <section class="fileira">
-    <h2>Filmes</h2>
-    <div class="trilho">
-      <a class="card" href="#"><div class="poster c"></div><span class="card-titulo">Título</span></a>
-      <a class="card" href="#"><div class="poster f"></div><span class="card-titulo">Título</span></a>
-      <a class="card" href="#"><div class="poster b"></div><span class="card-titulo">Título</span></a>
-      <a class="card" href="#"><div class="poster e"></div><span class="card-titulo">Título</span></a>
-      <a class="card" href="#"><div class="poster a"></div><span class="card-titulo">Título</span></a>
-      <a class="card" href="#"><div class="poster d"></div><span class="card-titulo">Título</span></a>
-      <a class="card" href="#"><div class="poster c"></div><span class="card-titulo">Título</span></a>
-      <a class="card" href="#"><div class="poster f"></div><span class="card-titulo">Título</span></a>
-    </div>
-  </section>
+    <!-- ===== Fileira: Em alta ===== -->
+    <section class="fileira">
+      <h2>Em alta</h2>
+      <div class="trilho">
+      </div>
+    </section>
 
-{% endblock %}
-</main>
+    <!-- ===== Fileira: Séries ===== -->
+    <section class="fileira">
+      <h2>Séries</h2>
+      <div class="trilho">
+      </div>
+    </section>
 
-<footer class="rodape">
-  <span>© PyFlix</span>
-  <nav aria-label="Rodapé">
-    <a href="#">Ajuda</a>
-    <a href="#">Termos de Uso</a>
-    <a href="#">Privacidade</a>
-  </nav>
-</footer>
+    <!-- ===== Fileira: Filmes ===== -->
+    <section class="fileira">
+      <h2>Filmes</h2>
+
+      <div class="trilho">
+
+        {% for f in filmes %}
+
+        <article class="card" hx-get="{% url 'filme_modal' f.pk %}" hx-target="#modal-container"
+           hx-swap="innerHTML" style="cursor: pointer;">
+
+          <div class="poster {% cycle 'a' 'b' 'c' 'd' 'e' 'f' %}">
+
+            {% if f.cartaz %}
+            <img src="{{ f.cartaz.url }}" alt="Pôster de {{ f.nome }}" loading="lazy">
+            {% endif %}
+
+            <span class="card-categoria">
+              {{ f.categoria }}
+            </span>
+
+          </div>
+
+          <h3 class="card-titulo">{{ f.nome }}</h3>
+
+          <p class="card-descricao">
+            {{ f.descricao }}
+          </p>
+
+        </article>
+
+        {% empty %}
+
+        <p class="vazio">Nenhum filme cadastrado ainda.</p>
+
+        {% endfor %}
+
+      </div>
+    </section>
+
+
+
+    {% endblock %}
+  </main>
+
+  <footer class="rodape">
+    <span>© PyFlix</span>
+    <nav aria-label="Rodapé">
+      <a href="#">Ajuda</a>
+      <a href="#">Termos de Uso</a>
+      <a href="#">Privacidade</a>
+    </nav>
+  </footer>
+
+  <!-- carregamento do html -->
+  <script src="https://unpkg.com/htmx.org@2.0.8/dist/htmx.min.js"></script>
+  <!-- aonde o modal vai ser carregado -->
+  <div id="modal-container"></div>
 
 </body>
+
 </html>

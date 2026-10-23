@@ -42,18 +42,19 @@ class Filmes(models.Model):
     def __str__(self):
         return self.nome
     
-class Series(models.Model):
+class Nome_da_serie(models.Model):
     nome_da_serie = models.CharField(verbose_name='Nome da Série', max_length=50)
     
     def __str__(self):
         return f"Nome: {self.nome_da_serie}"
     
     
-class Episodios(models.Model):
-    nome_da_serie = models.ForeignKey(Series, on_delete=models.PROTECT, related_name="episodios")
+class Series(models.Model):
+    nome_da_serie = models.ForeignKey(Nome_da_serie, on_delete=models.PROTECT, related_name="episodios")
     episodio = models.CharField(max_length=30)
     temporada = models.CharField(max_length=20, choices=TEMPORADAS_CHOICES)
     categoria = models.CharField(max_length=20, choices=CATEGORIA_CHOICES)
+    cartaz = models.ImageField(upload_to='cartazes/')
     
     def __str__(self):
         return f"Série: {self.nome_da_serie} | Episódio: {self.episodio} | Temporada: {self.temporada}"   

@@ -1,0 +1,68 @@
+<div class="modal-overlay" id="modal-overlay">
+
+    <div class="modal-filme" role="dialog" aria-modal="true"
+         aria-labelledby="modal-titulo">
+
+        <!-- Botão fechar -->
+        <button type="button" class="modal-fechar"
+            aria-label="Fechar"
+            onclick="document.getElementById('modal-container').replaceChildren()">
+            &times;
+        </button>
+
+        {% if modal_tipo == 'filme' %}
+
+        <!-- Banner -->
+        <div class="modal-banner">
+
+            {% if filme.cartaz %}
+            <img src="{{ filme.cartaz.url }}"
+                 alt="{{ filme.nome }}"
+                 class="modal-banner-imagem">
+            {% endif %}
+
+            <div class="modal-banner-gradiente"></div>
+
+            <div class="modal-banner-texto">
+                <span class="modal-marca">PYFLIX</span>
+                <h1 id="modal-titulo">{{ filme.nome }}</h1>
+            </div>
+
+        </div>
+
+        <!-- Informações -->
+        <div class="modal-corpo">
+
+            <div class="modal-metadados">
+                <span class="modal-disponivel">
+                    ● Disponível no PyFlix
+                </span>
+
+                <span class="modal-genero">
+                    {{ filme.categoria }}
+                </span>
+            </div>
+
+            <div class="modal-acoes">
+                <button type="button" class="modal-assistir">
+                    <span>▶</span> Assistir
+                </button>
+            </div>
+
+            <div class="modal-detalhes">
+                <h2>Sinopse</h2>
+                <p>{{ filme.descricao }}</p>
+            </div>
+
+            <div class="modal-rodape">
+                <span>PYFLIX ORIGINAL</span>
+                <span>Seu próximo filme começa aqui.</span>
+            </div>
+
+        </div>
+
+        {% endif %}
+
+    </div>
+
+</div>

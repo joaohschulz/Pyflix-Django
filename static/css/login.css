@@ -89,6 +89,9 @@ form{margin-top:30px;display:grid;gap:16px}
 .rodape a:focus-visible{outline:2px solid var(--sun);outline-offset:3px;border-radius:3px}
 .legal{margin-top:14px;color:#7488BD;font-size:.8rem;max-width:44ch}
 
+
+
+
 /* ---------- Mobile ---------- */
 @media (max-width:900px){
   .pagina{grid-template-columns:1fr}
