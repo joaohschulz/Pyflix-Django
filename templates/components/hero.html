@@ -1,0 +1,14 @@
+<section class="destaque" aria-labelledby="destaque-titulo">
+  {% if item.cartaz %}<img class="destaque-imagem" src="{{ item.cartaz.url }}" width="{{ item.cartaz.width }}" height="{{ item.cartaz.height }}" alt="" fetchpriority="high">{% endif %}
+  <div class="destaque-conteudo">
+    <span class="eyebrow">PYFLIX · SEU CINEMA EM CASA</span>
+    <div class="destaque-meta"><span class="selo">Em destaque</span><span>{{ item.categoria }}</span><span>{{ tipo }}</span></div>
+    <h1 id="destaque-titulo">{{ item.nome }}</h1>
+    <p>{{ item.descricao|truncatechars:220 }}</p>
+    <div class="destaque-botoes">
+      <button type="button" class="btn btn-claro" hx-get="{% url modal_url item.pk %}" hx-target="#modal-container" hx-swap="innerHTML"><span aria-hidden="true">▶</span> Explorar {{ tipo|lower }}</button>
+      <a class="btn btn-vidro" href="#catalogo">Ver catálogo <span aria-hidden="true">↘</span></a>
+    </div>
+  </div>
+  <span class="destaque-legenda" aria-hidden="true">HISTÓRIAS QUE FICAM COM VOCÊ</span>
+</section>

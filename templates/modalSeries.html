@@ -1,0 +1,32 @@
+{% extends 'components/modal_base.html' %}
+{% block modal_content %}
+  {% include 'components/modal_header.html' with item=serie tipo='SÉRIE' %}
+  <div class="modal-corpo">
+    <div class="modal-metadados">
+      <span class="modal-disponivel">● No catálogo</span><span class="modal-genero">{{ serie.categoria }}</span>
+      <span class="modal-genero">{{ serie.temporadas.all|length }} temporada{{ serie.temporadas.all|length|pluralize }}</span>
+    </div>
+    <div class="modal-acoes">
+      <button type="button" class="btn btn-claro modal-assistir"><span aria-hidden="true">▶</span> Assistir</button>
+    </div>
+    <div class="modal-detalhes"><h2>Sinopse</h2><p>{{ serie.descricao }}</p></div>
+    <div class="modal-detalhes">
+      <h2>Episódios</h2>
+      {% for temporada in serie.temporadas.all %}
+        <details class="temporada" {% if forloop.first %}open{% endif %}>
+          <summary>Temporada {{ temporada.numero }} <span>{{ temporada.episodios.all|length }} episódio{{ temporada.episodios.all|length|pluralize }}</span></summary>
+          <ul class="lista-episodios">
+            {% for ep in temporada.episodios.all %}
+              <li class="episodio">
+                <span class="episodio-numero">{{ ep.numero|stringformat:'02d' }}</span>
+                <div class="episodio-info"><strong>{{ ep.titulo }}</strong><p>{{ ep.descricao }}</p></div>
+                <button type="button" class="episodio-assistir" aria-label="Assistir {{ ep.titulo }}"><span aria-hidden="true">▶</span> Assistir</button>
+              </li>
+            {% empty %}<li class="vazio">Nenhum episódio cadastrado.</li>{% endfor %}
+          </ul>
+        </details>
+      {% empty %}<p class="vazio">Nenhuma temporada cadastrada ainda.</p>{% endfor %}
+    </div>
+    <div class="modal-rodape"><span>PYFLIX · SÉRIES</span><span>Sua próxima série começa aqui.</span></div>
+  </div>
+{% endblock %}

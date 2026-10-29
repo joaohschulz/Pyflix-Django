@@ -1,0 +1,5 @@
+<div class="modal-banner">
+  {% if item.cartaz %}<img src="{{ item.cartaz.url }}" width="{{ item.cartaz.width }}" height="{{ item.cartaz.height }}" alt="" class="modal-banner-imagem">{% endif %}
+  <div class="modal-banner-gradiente"></div>
+  <div class="modal-banner-texto"><span class="modal-marca">PYFLIX · {{ tipo }}</span><h1 id="modal-titulo">{{ item.nome }}</h1></div>
+</div>

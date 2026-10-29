@@ -1,0 +1,11 @@
+<article class="card" data-title="{{ item.nome }}" data-category="{{ item.categoria }}">
+  <button class="card-abrir" type="button" hx-get="{% url modal_url item.pk %}" hx-target="#modal-container" hx-swap="innerHTML" aria-label="Ver detalhes de {{ item.nome }}">
+    <span class="poster">
+      {% if item.cartaz %}<img src="{{ item.cartaz.url }}" width="{{ item.cartaz.width }}" height="{{ item.cartaz.height }}" alt="Pôster de {{ item.nome }}" loading="lazy" decoding="async">{% else %}<span class="poster-vazio">{{ item.nome }}</span>{% endif %}
+      <span class="card-play" aria-hidden="true">▶</span>
+      <span class="card-categoria">{{ item.categoria }}</span>
+    </span>
+    <span class="card-titulo">{{ item.nome }}</span>
+    <span class="card-descricao">{{ item.descricao }}</span>
+  </button>
+</article>

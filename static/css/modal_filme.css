@@ -1,271 +1,41 @@
-/* FUNDO ESCURO */
-
-.modal-overlay {
-    position: fixed;
-    inset: 0;
-    z-index: 9999;
-
-    background: rgba(0, 0, 0, 0.85);
-    backdrop-filter: blur(8px);
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    padding: 20px;
-    animation: aparecer 0.25s ease;
+/* Modal: apresentação e lista de episódios. */
+body.modal-aberto { overflow: hidden; }
+.modal-overlay { position: fixed; inset: 0; z-index: 100; padding: 28px; background: #000c; backdrop-filter: blur(10px); display: flex; justify-content: center; align-items: center; }
+.modal-filme { position: relative; width: 100%; max-width: 850px; max-height: 90dvh; overflow-y: auto; background: var(--panel); color: var(--ink); border: 1px solid var(--line); border-radius: 12px; box-shadow: 0 30px 100px #0009; animation: subir .2s ease; }
+.modal-banner { position: relative; height: 370px; background: linear-gradient(140deg, #48212e, var(--panel)); }
+.modal-banner-imagem { width: 100%; height: 100%; display: block; object-fit: cover; object-position: center 25%; }
+.modal-banner-gradiente { position: absolute; inset: 0; background: linear-gradient(0deg, var(--panel) 2%, #14151940 80%); }
+.modal-banner-texto { position: absolute; bottom: 25px; left: 36px; right: 36px; }
+.modal-marca { color: #ff6b7e; font-size: .65rem; font-weight: 700; letter-spacing: .2em; }
+.modal-banner-texto h1 { font-size: clamp(2rem, 5vw, 3.5rem); line-height: 1.05; letter-spacing: -.04em; margin-top: 12px; overflow-wrap: anywhere; }
+.modal-fechar { position: absolute; top: 16px; right: 16px; z-index: 2; width: 38px; height: 38px; background: #08090bdb; border: 1px solid #ffffff40; border-radius: 50%; color: white; font-size: 26px; line-height: 1; }
+.modal-fechar:hover { background: var(--accent); }
+.modal-corpo { padding: 0 36px 30px; }
+.modal-metadados { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin-bottom: 28px; }
+.modal-disponivel { color: #8ad9ac; font-size: .75rem; }
+.modal-genero { color: #c8c8d1; padding: 4px 9px; border: 1px solid #ffffff25; border-radius: 4px; font-size: .7rem; }
+.modal-acoes { display: flex; margin-bottom: 28px; }
+.modal-detalhes + .modal-detalhes { margin-top: 30px; }
+.modal-detalhes h2 { font-size: 1.05rem; margin-bottom: 12px; }
+.modal-detalhes p { color: var(--muted); font-size: .88rem; line-height: 1.8; overflow-wrap: anywhere; }
+.temporada { border: 1px solid var(--line); border-radius: 6px; margin-top: 12px; }
+.temporada summary { cursor: pointer; padding: 16px; font-size: .88rem; font-weight: 600; }
+.temporada summary span { color: var(--muted); font-size: .7rem; margin-left: 10px; font-weight: 400; }
+.lista-episodios { list-style: none; padding: 0 16px; }
+.episodio { display: flex; align-items: baseline; gap: 18px; padding: 16px 0; border-top: 1px solid var(--line); }
+.episodio-numero { color: #85838f; font-size: 1.2rem; }
+.episodio-info { min-width: 0; flex: 1; }
+.episodio-assistir { display: inline-flex; align-items: center; gap: 8px; flex-shrink: 0; padding: 9px 12px; border: 1px solid #ffffff40; border-radius: 5px; background: transparent; color: var(--ink); font-size: .78rem; }
+.episodio-assistir:hover { background: #ffffff12; border-color: var(--accent); }
+.episodio-info strong { font-size: .88rem; }
+.episodio-info p { margin-top: 5px; font-size: .8rem; }
+.modal-rodape { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; border-top: 1px solid var(--line); margin-top: 30px; padding-top: 20px; color: var(--muted); font-size: .65rem; letter-spacing: .08em; }
+@keyframes subir { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+/* Exibe o cartaz completo em vez de ampliar uma imagem vertical como banner. */
+@media (min-width: 601px) {
+  .modal-banner-imagem { position: absolute; top: 28px; right: 70px; width: auto; height: auto; max-width: 35%; max-height: 310px; object-fit: contain; border-radius: 6px; box-shadow: 0 12px 36px #0006; }
+  .modal-banner-gradiente { background: linear-gradient(0deg, var(--panel), transparent 28%), linear-gradient(90deg, var(--panel), transparent 55%); }
+  .modal-banner-texto { right: 46%; }
 }
-
-/* CONTAINER PRINCIPAL */
-
-.modal-filme {
-    width: 100%;
-    max-width: 850px;
-    max-height: 90vh;
-
-    background: #181818;
-    color: #fff;
-
-    border-radius: 14px;
-    overflow-y: auto;
-    overflow-x: hidden;
-
-    position: relative;
-
-    box-shadow: 0 25px 80px rgba(0, 0, 0, 0.6);
-
-    animation: subir 0.3s ease;
-}
-
-/* BANNER */
-
-.modal-banner {
-    height: 380px;
-    position: relative;
-    overflow: hidden;
-
-    background: #252525;
-}
-
-.modal-banner-imagem {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center;
-    display: block;
-}
-
-.modal-banner-gradiente {
-    position: absolute;
-    inset: 0;
-
-    background: linear-gradient(
-        to bottom,
-        rgba(0, 0, 0, 0.1) 15%,
-        rgba(0, 0, 0, 0.2) 45%,
-        #181818 100%
-    );
-}
-
-.modal-banner-texto {
-    position: absolute;
-    bottom: 30px;
-    left: 35px;
-    right: 35px;
-    z-index: 2;
-}
-
-.modal-marca {
-    color: #e50914;
-    font-size: 12px;
-    font-weight: 800;
-    letter-spacing: 4px;
-}
-
-.modal-banner-texto h1 {
-    font-size: clamp(28px, 5vw, 48px);
-    font-weight: 800;
-    line-height: 1.1;
-    margin: 12px 0 0;
-    text-shadow: 0 3px 15px rgba(0, 0, 0, 0.5);
-}
-
-/* BOTÃO FECHAR */
-
-.modal-fechar {
-    position: absolute;
-    top: 18px;
-    right: 18px;
-    z-index: 10;
-
-    width: 40px;
-    height: 40px;
-
-    border: 1px solid rgba(255,255,255,0.15);
-    border-radius: 50%;
-
-    background: rgba(20,20,20,0.85);
-    color: white;
-
-    font-size: 28px;
-    line-height: 1;
-
-    cursor: pointer;
-    transition: 0.2s ease;
-}
-
-.modal-fechar:hover {
-    background: #e50914;
-    transform: rotate(90deg);
-}
-
-/* CONTEÚDO */
-
-.modal-corpo {
-    padding: 10px 35px 35px;
-}
-
-.modal-metadados {
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 15px;
-    margin-bottom: 24px;
-}
-
-.modal-disponivel {
-    color: #46d369;
-    font-size: 13px;
-    font-weight: 700;
-}
-
-.modal-genero {
-    font-size: 12px;
-    color: #d4d4d4;
-
-    border: 1px solid #555;
-    border-radius: 5px;
-    padding: 6px 12px;
-}
-
-/* BOTÕES */
-
-.modal-acoes {
-    display: flex;
-    gap: 12px;
-    margin-bottom: 30px;
-}
-
-.modal-assistir {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 12px;
-
-    background: #fff;
-    color: #111;
-
-    padding: 13px 32px;
-
-    border: none;
-    border-radius: 6px;
-
-    font-family: inherit;
-    font-size: 15px;
-    font-weight: 800;
-
-    cursor: pointer;
-    transition: 0.2s;
-}
-
-.modal-assistir:hover {
-    background: #ddd;
-    transform: translateY(-2px);
-}
-
-/* SINOPSE */
-
-.modal-detalhes h2 {
-    font-size: 18px;
-    font-weight: 700;
-    margin-bottom: 12px;
-}
-
-.modal-detalhes p {
-    color: #c5c5c5;
-    font-size: 15px;
-    line-height: 1.8;
-    margin: 0;
-}
-
-/* RODAPÉ */
-
-.modal-rodape {
-    display: flex;
-    justify-content: space-between;
-    gap: 15px;
-
-    margin-top: 35px;
-    padding-top: 20px;
-
-    border-top: 1px solid #333;
-
-    color: #777;
-    font-size: 11px;
-    letter-spacing: 1px;
-}
-
-/* ANIMAÇÕES */
-
-@keyframes aparecer {
-    from { opacity: 0; }
-    to { opacity: 1; }
-}
-
-@keyframes subir {
-    from {
-        opacity: 0;
-        transform: translateY(25px) scale(0.97);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-    }
-}
-
-/* RESPONSIVIDADE */
-
-@media (max-width: 600px) {
-    .modal-overlay {
-        padding: 10px;
-    }
-
-    .modal-banner {
-        height: 280px;
-    }
-
-    .modal-banner-texto {
-        left: 20px;
-        right: 20px;
-        bottom: 15px;
-    }
-
-    .modal-corpo {
-        padding: 15px 20px 25px;
-    }
-
-    .modal-assistir {
-        width: 100%;
-    }
-
-    .modal-rodape {
-        flex-direction: column;
-    }
-}
-
-@media (prefers-reduced-motion: reduce) {
-    .modal-overlay,
-    .modal-filme {
-        animation: none;
-    }
-}
+@media (max-width: 600px) { .modal-assistir { width: 100%; } .episodio { flex-wrap: wrap; gap: 12px; } .episodio-info { flex-basis: calc(100% - 48px); } .episodio-assistir { margin-left: 36px; } }
+@media (max-width: 600px) { .modal-overlay { padding: 12px; } .modal-banner { height: 290px; } .modal-banner-texto { left: 20px; right: 20px; } .modal-corpo { padding: 0 20px 24px; } .temporada summary span { display: block; margin-left: 16px; margin-top: 4px; } }

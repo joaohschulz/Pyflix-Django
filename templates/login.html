@@ -1,69 +1,22 @@
-{% load static %}
-
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Fazer Login · PyFlix</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,700;12..96,800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="{% static 'css/login.css' %}">
-</head>
-<body>
-<main class="pagina">
-
-  <aside class="parede" aria-hidden="true">
-    <div class="faixa">
-      <div class="col"><i class="b"></i><i class="a"></i><i class="e"></i><i class="c"></i><i class="d"></i><i class="f"></i><i class="b"></i></div>
-      <div class="col"><i class="f"></i><i class="d"></i><i class="b"></i><i class="a"></i><i class="c"></i><i class="e"></i><i class="a"></i></div>
-      <div class="col"><i class="c"></i><i class="e"></i><i class="f"></i><i class="b"></i><i class="a"></i><i class="d"></i><i class="e"></i></div>
-      <div class="col"><i class="d"></i><i class="c"></i><i class="a"></i><i class="f"></i><i class="e"></i><i class="b"></i><i class="c"></i></div>
+{% extends 'base_auth.html' %}
+{% block title %}Entrar · PyFlix{% endblock %}
+{% block auth_content %}
+  <span class="eyebrow auth-eyebrow">SUA SESSÃO VAI COMEÇAR</span>
+  <h1 id="auth-titulo">Bom ter você<br>de volta.</h1>
+  <p class="sub">Entre na sua conta para explorar o catálogo.</p>
+  <form method="post" action="{% url 'login' %}">
+    {% csrf_token %}
+    {% if form.errors %}<p class="aviso" role="alert">Verifique os dados informados.</p>{% endif %}
+    <div class="campo">
+      <label for="{{ form.username.id_for_label }}">Login</label>
+      {{ form.username }}
     </div>
-  </aside>
-
-  <section class="lado">
-    <div class="cartao">
-      <div class="marca">
-        <div class="marca-icone" aria-hidden="true">
-          <svg viewBox="0 0 16 16"><path d="M0 0l16 8-16 8z"/></svg>
-        </div>
-        <span class="marca-nome">PyFlix</span>
-      </div>
-
-      <h1>Faça login e comece a assistir</h1>
-      <p class="sub">Filmes e séries no mesmo lugar, em qualquer tela.</p>
-
-
-      <form method="post" action="{% url 'login' %}">
-        {% csrf_token %}
-
-        
-        <div class="erros"></div>
-            {% if form.errors %}
-            <p class="aviso">Verifique os dados informados</p>
-            {% endif %}
-    
-        <div class="campo">
-            <label for="{{ form.username.id_for_label }}">Login</label>
-            {{ form.username }}
-        </div>
-
-        <div class="campo">
-            <label for="{{ form.password.id_for_label }}">Senha</label>
-            {{ form.password }}
-        </div>
-
-        <input type="hidden" name="next" value="{% url 'plataform' %}">
-        <button type="submit" class="botao">Login</button>
-      </form>
-
-      <p class="rodape">Ainda não tem uma conta? <a href="{% url 'register' %}">Registrar</a></p>
-      <p class="legal">Ao criar a conta, você concorda com os Termos de Uso e a Política de Privacidade da PyFlix.</p>
+    <div class="campo">
+      <label for="{{ form.password.id_for_label }}">Senha</label>
+      {{ form.password }}
     </div>
-  </section>
-
-</main>
-</body>
-</html>
+    <input type="hidden" name="next" value="{% url 'base' %}">
+    <button type="submit" class="botao">Entrar <span aria-hidden="true">→</span></button>
+  </form>
+  <p class="auth-rodape">Ainda não tem uma conta? <a href="{% url 'register' %}">Criar conta</a></p>
+{% endblock %}

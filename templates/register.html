@@ -1,73 +1,30 @@
-{% load static %}
-
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Criar conta · PyFlix</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,700;12..96,800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="{% static 'css/register.css' %}">
-</head>
-<body>
-<main class="pagina">
-
-  <aside class="parede" aria-hidden="true">
-    <div class="faixa">
-      <div class="col"><i class="b"></i><i class="a"></i><i class="e"></i><i class="c"></i><i class="d"></i><i class="f"></i><i class="b"></i></div>
-      <div class="col"><i class="f"></i><i class="d"></i><i class="b"></i><i class="a"></i><i class="c"></i><i class="e"></i><i class="a"></i></div>
-      <div class="col"><i class="c"></i><i class="e"></i><i class="f"></i><i class="b"></i><i class="a"></i><i class="d"></i><i class="e"></i></div>
-      <div class="col"><i class="d"></i><i class="c"></i><i class="a"></i><i class="f"></i><i class="e"></i><i class="b"></i><i class="c"></i></div>
+{% extends 'base_auth.html' %}
+{% block title %}Criar conta · PyFlix{% endblock %}
+{% block auth_content %}
+  <span class="eyebrow auth-eyebrow">SEU LUGAR NA PRIMEIRA FILA</span>
+  <h1 id="auth-titulo">Toda boa história<br>tem um começo.</h1>
+  <p class="sub">Crie sua conta e descubra o que assistir.</p>
+  <form method="post" action="">
+    {% csrf_token %}
+    {% if form.errors %}<p class="aviso" role="alert">Verifique os dados informados.</p>{% endif %}
+    {{ form.non_field_errors }}
+    <div class="campo">
+      {{ form.username.label_tag }}
+      {{ form.username }}
+      {{ form.username.errors }}
     </div>
-  </aside>
-
-  <section class="lado">
-    <div class="cartao">
-      <div class="marca">
-        <div class="marca-icone" aria-hidden="true">
-          <svg viewBox="0 0 16 16"><path d="M0 0l16 8-16 8z"/></svg>
-        </div>
-        <span class="marca-nome">PyFlix</span>
-      </div>
-
-      <h1>Crie sua conta e comece a assistir</h1>
-      <p class="sub">Filmes e séries no mesmo lugar, em qualquer tela.</p>
-
-
-      <form method="post" action="">
-        {% csrf_token %}
-
-        
-        <div class="erros"></div>
-            {% if forms.errors %}
-            <p class="aviso">Verifique os dados informados</p>
-            {% endif %}
-    
-        <div class="campo">
-            {{ form.username.label_tag }}
-            {{ form.username }}
-        </div>
-
-        <div class="campo">
-            {{ form.password1.label_tag }}
-            {{ form.password1 }}
-        </div>
-
-        <div class="campo">
-            {{ form.password2.label_tag }}
-            {{ form.password2 }}
-        </div>
-
-        <button type="submit" class="botao">Criar conta</button>
-      </form>
-
-      <p class="rodape">Já tem uma conta? <a href="{% url 'login' %}">Entrar</a></p>
-      <p class="legal">Ao criar a conta, você concorda com os Termos de Uso e a Política de Privacidade da PyFlix.</p>
+    <div class="campo">
+      {{ form.password1.label_tag }}
+      {{ form.password1 }}
+      {% if form.password1.help_text %}<div class="ajuda">{{ form.password1.help_text|safe }}</div>{% endif %}
+      {{ form.password1.errors }}
     </div>
-  </section>
-
-</main>
-</body>
-</html>
+    <div class="campo">
+      {{ form.password2.label_tag }}
+      {{ form.password2 }}
+      {{ form.password2.errors }}
+    </div>
+    <button type="submit" class="botao">Criar conta <span aria-hidden="true">→</span></button>
+  </form>
+  <p class="auth-rodape">Já tem uma conta? <a href="{% url 'login' %}">Entrar</a></p>
+{% endblock %}
