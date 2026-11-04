@@ -1,16 +1,13 @@
 from django.contrib import admin
-from .models import Filmes, Serie, Temporada, Episodios
+from .models import Filmes, Series, Nome_da_serie
 
 class FilmesAdmin(admin.ModelAdmin):
     list_display = ['nome', 'descricao', 'categoria', 'cartaz']
-class SerieAdmin(admin.ModelAdmin):
-    list_display = ['nome','descricao', 'cartaz', 'categoria']
-class TemporadaAdmin(admin.ModelAdmin):
-    list_display = ['nome', 'numero']
-class EpisodiosAdmin(admin.ModelAdmin):
-    list_display = ['temporada', 'numero', 'titulo', 'descricao']
+class SeriesAdmin(admin.ModelAdmin):
+    list_display = ['nome_da_serie', 'episodio', 'temporada', 'categoria', 'cartaz']
+class NomeDaSerieAdmin(admin.ModelAdmin):
+    list_display = ['nome_da_serie',]
     
 admin.site.register(Filmes, FilmesAdmin)
-admin.site.register(Serie, SerieAdmin)
-admin.site.register(Temporada, TemporadaAdmin)
-admin.site.register(Episodios, EpisodiosAdmin)
+admin.site.register(Nome_da_serie, NomeDaSerieAdmin)
+admin.site.register(Series, SeriesAdmin )
