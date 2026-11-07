@@ -1,11 +1,13 @@
+<!-- aqui basicamente ficam os modals, ele verificam se
+ atraves de um if se vai ser filme ou se vai ser serie
+ dependendo da resposta do if, ele mostra coisas diferentes -->
+
 <div class="modal-overlay" id="modal-overlay">
 
-    <div class="modal-filme" role="dialog" aria-modal="true"
-         aria-labelledby="modal-titulo">
+    <div class="modal-filme" role="dialog" aria-modal="true" aria-labelledby="modal-titulo">
 
         <!-- Botão fechar -->
-        <button type="button" class="modal-fechar"
-            aria-label="Fechar"
+        <button type="button" class="modal-fechar" aria-label="Fechar"
             onclick="document.getElementById('modal-container').replaceChildren()">
             &times;
         </button>
@@ -16,9 +18,7 @@
         <div class="modal-banner">
 
             {% if filme.cartaz %}
-            <img src="{{ filme.cartaz.url }}"
-                 alt="{{ filme.nome }}"
-                 class="modal-banner-imagem">
+            <img src="{{ filme.cartaz.url }}" alt="{{ filme.nome }}" class="modal-banner-imagem">
             {% endif %}
 
             <div class="modal-banner-gradiente"></div>
@@ -57,6 +57,83 @@
             <div class="modal-rodape">
                 <span>PYFLIX ORIGINAL</span>
                 <span>Seu próximo filme começa aqui.</span>
+            </div>
+
+        </div>
+
+        {% elif modal_tipo == 'series' %}
+
+        <!-- Banner -->
+        <div class="modal-banner">
+
+            {% if serie.cartaz %}
+            <img src="{{ serie.cartaz.url }}" alt="{{ serie.nome }}" class="modal-banner-imagem">
+            {% endif %}
+
+            <div class="modal-banner-gradiente"></div>
+
+            <div class="modal-banner-texto">
+                <span class="modal-marca">PYFLIX</span>
+                <h1 id="modal-titulo">{{ serie.nome }}</h1>
+            </div>
+
+        </div>
+
+        <!-- Informações -->
+        <div class="modal-corpo">
+
+            <div class="modal-metadados">
+                <span class="modal-disponivel">
+                    ● Disponível no PyFlix
+                </span>
+
+                <span class="modal-genero">
+                    {{ serie.categoria }}
+                </span>
+
+                <span class="modal-genero">
+                    {{ serie.temporadas.all|length }} temporada{{ serie.temporadas.all|length|pluralize }}
+                </span>
+            </div>
+
+
+            <div class="modal-detalhes">
+                <h2>Sinopse</h2>
+                <p>{{ serie.descricao }}</p>
+            </div>
+
+            <!-- Temporadas e episódios -->
+            <div class="modal-detalhes">
+                <h2>Episódios</h2>
+
+                {% for temporada in serie.temporadas.all %}
+
+                <h3 class="modal-temporada">Temporada {{ temporada.numero }}</h3>
+
+                <ol class="modal-episodios">
+                    {% for episodio in temporada.episodios.all %}
+                    <li>
+                        <strong>{{ episodio.numero }}. {{ episodio.titulo }}</strong>
+                        {% if episodio.descricao %}
+                        <p>{{ episodio.descricao }}</p>
+                        {% endif %}
+                        <button type="button" class="modal-assistir">
+                            <span>▶</span> Assistir
+                        </button>
+                    </li>
+                    {% empty %}
+                    <li>Nenhum episódio cadastrado.</li>
+                    {% endfor %}
+                </ol>
+
+                {% empty %}
+                <p>Nenhuma temporada cadastrada.</p>
+                {% endfor %}
+            </div>
+
+            <div class="modal-rodape">
+                <span>PYFLIX ORIGINAL</span>
+                <span>Sua próxima série começa aqui.</span>
             </div>
 
         </div>

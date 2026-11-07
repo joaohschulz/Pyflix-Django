@@ -1,6 +1,6 @@
 :root{
-  --bg:#0B1A3B; --panel:#0F2050; --ink:#EEF2FF; --muted:#9FB0DC;
-  --line:#2C4585; --sun:#FFD43B; --sky:#4B8BBE; --danger:#FF8A7A;
+  --bg:#050B1A; --panel:#0A1430; --ink:#EEF2FF; --muted:#8C9CC8;
+  --line:#1C2B55; --sun:#FFD43B; --sky:#4B8BBE; --danger:#FF8A7A;
 }
 *{box-sizing:border-box;margin:0}
 html,body{height:100%}
@@ -11,7 +11,7 @@ body{
 .pagina{min-height:100dvh;display:grid;grid-template-columns:1.15fr 1fr}
 
 /* ---------- Parede de pôsteres ---------- */
-.parede{position:relative;overflow:hidden;background:#08142F}
+.parede{position:relative;overflow:hidden;background:#030814}
 .faixa{
   position:absolute;inset:-25% -12%;
   display:grid;grid-template-columns:repeat(4,1fr);gap:14px;
@@ -36,8 +36,8 @@ body{
 .parede::after{
   content:"";position:absolute;inset:0;pointer-events:none;
   background:
-    linear-gradient(90deg,rgba(11,26,59,0) 45%,var(--bg) 100%),
-    linear-gradient(0deg,rgba(11,26,59,.75),rgba(11,26,59,0) 40%);
+    linear-gradient(90deg,rgba(5,11,26,0) 45%,var(--bg) 100%),
+    linear-gradient(0deg,rgba(5,11,26,.75),rgba(5,11,26,0) 40%);
 }
 
 /* ---------- Lado do cadastro ---------- */
@@ -70,7 +70,7 @@ form{margin-top:30px;display:grid;gap:16px}
   transition:border-color .15s, box-shadow .15s;
 }
 .campo input::placeholder{color:#6F83B8}
-.campo input:hover{border-color:#3C5AA8}
+.campo input:hover{border-color:#2C4585}
 .campo input:focus-visible{outline:none;border-color:var(--sun);box-shadow:0 0 0 3px rgba(255,212,59,.25)}
 .campo .erro,.erros{color:var(--danger);font-size:.85rem}
 
@@ -96,8 +96,8 @@ form{margin-top:30px;display:grid;gap:16px}
 @media (max-width:900px){
   .pagina{grid-template-columns:1fr}
   .parede{position:fixed;inset:0;z-index:0;opacity:.45}
-  .parede::after{background:linear-gradient(0deg,var(--bg) 10%,rgba(11,26,59,.55))}
+  .parede::after{background:linear-gradient(0deg,var(--bg) 10%,rgba(5,11,26,.55))}
   .lado{position:relative;z-index:1;align-items:flex-start}
-  .cartao{background:rgba(11,26,59,.82);backdrop-filter:blur(6px);border-radius:16px;padding:24px}
+  .cartao{background:rgba(5,11,26,.82);backdrop-filter:blur(6px);border-radius:16px;padding:24px}
 }
 @media (prefers-reduced-motion:reduce){.col{animation:none}}

@@ -1,6 +1,6 @@
 :root{
-  --bg:#0B1A3B; --panel:#0F2050; --ink:#EEF2FF; --muted:#9FB0DC;
-  --line:#2C4585; --sun:#FFD43B; --sky:#4B8BBE;
+  --bg:#050B1A; --panel:#0A1430; --ink:#EEF2FF; --muted:#8C9CC8;
+  --line:#1C2B55; --sun:#FFD43B; --sky:#4B8BBE;
   --pad:clamp(16px,4vw,48px);
 }
 *{box-sizing:border-box;margin:0}
@@ -24,9 +24,9 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--sun);outline-offset
   position:sticky;top:0;z-index:20;
   display:flex;align-items:center;gap:clamp(16px,3vw,40px);
   padding:14px var(--pad);
-  background:linear-gradient(180deg,rgba(11,26,59,.96),rgba(11,26,59,.82));
+  background:linear-gradient(180deg,rgba(5,11,26,.96),rgba(5,11,26,.82));
   backdrop-filter:blur(10px);
-  border-bottom:1px solid rgba(44,69,133,.5);
+  border-bottom:1px solid rgba(28,43,85,.5);
 }
 .marca{display:flex;align-items:center;gap:10px}
 .marca-icone{width:34px;height:34px;border-radius:9px;background:var(--sun);display:grid;place-items:center}
@@ -102,14 +102,14 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--sun);outline-offset
   position:relative;display:flex;align-items:flex-end;
   min-height:min(72vh,640px);padding:var(--pad);
   background:
-    radial-gradient(60% 80% at 78% 25%,rgba(255,212,59,.38),transparent 65%),
-    radial-gradient(55% 70% at 95% 80%,rgba(75,139,190,.55),transparent 70%),
-    linear-gradient(160deg,#173A7A,#0B1A3B 70%);
+    radial-gradient(60% 80% at 78% 25%,rgba(255,212,59,.28),transparent 65%),
+    radial-gradient(55% 70% at 95% 80%,rgba(75,139,190,.35),transparent 70%),
+    linear-gradient(160deg,#0D2250,#050B1A 70%);
 }
 .destaque::after{
   content:"";position:absolute;inset:0;pointer-events:none;
   background:linear-gradient(0deg,var(--bg) 2%,transparent 45%),
-             linear-gradient(90deg,rgba(11,26,59,.7),transparent 60%);
+             linear-gradient(90deg,rgba(5,11,26,.7),transparent 60%);
 }
 .destaque-conteudo{position:relative;z-index:1;max-width:560px;padding-bottom:clamp(8px,3vw,32px)}
 .selo{
@@ -164,7 +164,7 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--sun);outline-offset
 .rodape{
   display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;
   padding:24px var(--pad);margin-top:12px;
-  border-top:1px solid rgba(44,69,133,.5);color:#7488BD;font-size:.9rem;
+  border-top:1px solid rgba(28,43,85,.5);color:#7488BD;font-size:.9rem;
 }
 .rodape nav{display:flex;gap:20px}
 .rodape a:hover{color:var(--ink)}
