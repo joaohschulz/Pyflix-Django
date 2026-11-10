@@ -1,0 +1,62 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Até logo · PyFlix</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,700;12..96,800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{% static 'css/logout.css' %}">
+</head>
+<body>
+<main class="pagina">
+
+  <!-- Parede de pôsteres (mesma do login) -->
+  <aside class="parede" aria-hidden="true">
+    <div class="faixa">
+      <div class="col"><i class="b"></i><i class="a"></i><i class="e"></i><i class="c"></i><i class="d"></i><i class="f"></i><i class="b"></i></div>
+      <div class="col"><i class="f"></i><i class="d"></i><i class="b"></i><i class="a"></i><i class="c"></i><i class="e"></i><i class="a"></i></div>
+      <div class="col"><i class="c"></i><i class="e"></i><i class="f"></i><i class="b"></i><i class="a"></i><i class="d"></i><i class="e"></i></div>
+      <div class="col"><i class="d"></i><i class="c"></i><i class="a"></i><i class="f"></i><i class="e"></i><i class="b"></i><i class="c"></i></div>
+    </div>
+  </aside>
+
+  <section class="lado">
+    <div class="cartao">
+
+      <div class="marca">
+        <div class="marca-icone" aria-hidden="true">
+          <svg viewBox="0 0 16 16"><path d="M0 0l16 8-16 8z"/></svg>
+        </div>
+        <span class="marca-nome">PyFlix</span>
+      </div>
+
+      <!-- Ícone de "saiu" -->
+      <div class="selo-saida" aria-hidden="true">
+        <svg viewBox="0 0 24 24">
+          <path d="M10 4H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h4"/>
+          <path d="M15 8l4 4-4 4"/>
+          <path d="M19 12H9"/>
+        </svg>
+      </div>
+
+      <h1>Você saiu da sua conta</h1>
+      <p class="sub">Até a próxima sessão! Seus filmes e séries continuam aqui esperando por você.</p>
+
+      <div class="acoes">
+        <a href="{% url 'login' %}" class="botao">Entrar novamente</a>
+        <a href="{% url 'register' %}" class="botao botao-vidro">Criar outra conta</a>
+      </div>
+
+      <p class="rodape">Usando um computador compartilhado? Feche também o navegador.</p>
+      <p class="legal">© PyFlix · Termos de Uso · Política de Privacidade</p>
+
+    </div>
+  </section>
+
+</main>
+</body>
+</html>

@@ -97,6 +97,23 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--sun);outline-offset
   max-width:14ch;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
 }
 
+/* sair */
+.sair{margin:0;flex:0 0 auto}
+.sair-botao{
+  display:flex;align-items:center;gap:8px;
+  height:40px;padding:0 16px 0 12px;
+  background:transparent;color:var(--muted);
+  border:1.5px solid var(--line);border-radius:999px;
+  font:inherit;font-size:.92rem;font-weight:600;cursor:pointer;
+  transition:color .15s,border-color .15s,background .15s;
+}
+.sair-botao svg{
+  width:18px;height:18px;fill:none;stroke:currentColor;
+  stroke-width:2;stroke-linecap:round;stroke-linejoin:round;
+}
+.sair-botao:hover{color:#FF8A7A;border-color:#FF8A7A;background:rgba(255,138,122,.08)}
+.sair-botao:active{transform:translateY(1px)}
+
 /* ---------- Destaque ---------- */
 .destaque{
   position:relative;display:flex;align-items:flex-end;
@@ -111,6 +128,50 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--sun);outline-offset
   background:linear-gradient(0deg,var(--bg) 2%,transparent 45%),
              linear-gradient(90deg,rgba(5,11,26,.7),transparent 60%);
 }
+/* destaque com o cartaz do Homem-Aranha */
+.destaque-aranha{
+  background:
+    linear-gradient(90deg,rgba(5,11,26,.92) 0%,rgba(5,11,26,.55) 45%,rgba(5,11,26,.1) 100%),
+    radial-gradient(55% 70% at 85% 30%,rgba(214,40,40,.35),transparent 70%),
+    url("/media/cartazes/spider.jpeg") center 25% / cover no-repeat,
+    #050B1A;
+}
+.destaque-poster{display:none}
+
+/* PC: o cartaz é pequeno (455x674), então em vez de esticar
+   usamos ele desfocado no fundo e nítido, em tamanho real, à direita */
+@media (min-width:761px){
+  .destaque-aranha{
+    overflow:hidden;
+    background:
+      linear-gradient(90deg,rgba(5,11,26,.95) 0%,rgba(5,11,26,.6) 50%,rgba(5,11,26,.25) 100%),
+      radial-gradient(55% 70% at 85% 30%,rgba(214,40,40,.35),transparent 70%),
+      #050B1A;
+  }
+  .destaque-aranha::before{
+    content:"";position:absolute;inset:-40px;pointer-events:none;
+    background:url("/media/cartazes/spider.jpeg") center 30% / cover no-repeat;
+    filter:blur(28px) brightness(.5) saturate(1.2);
+    z-index:-1;
+  }
+  .destaque-aranha{isolation:isolate}
+}
+@media (min-width:1100px){
+  .destaque-poster{
+    display:block;position:absolute;z-index:1;
+    right:calc(var(--pad) + 2vw);top:50%;transform:translateY(-50%);
+    height:calc(100% - 80px);max-height:600px;width:auto;aspect-ratio:455/674;
+    object-fit:cover;border-radius:14px;
+    box-shadow:0 30px 70px rgba(0,0,0,.6),0 0 0 1px rgba(255,255,255,.08);
+  }
+}
+
+.destaque-info{
+  display:block;margin-bottom:10px;
+  color:#C9D4F2;font-size:.9rem;font-weight:500;letter-spacing:.02em;
+}
+button.btn{border:0;cursor:pointer;font:inherit;font-weight:700;font-size:1rem}
+
 .destaque-conteudo{position:relative;z-index:1;max-width:560px;padding-bottom:clamp(8px,3vw,32px)}
 .selo{
   display:inline-block;padding:4px 12px;border-radius:999px;margin-bottom:14px;
@@ -211,6 +272,8 @@ h3.card-titulo{font-size:.95rem;font-weight:700;color:var(--ink)}
   .busca button{display:none}   /* Enter já envia o formulário */
   .perfil{padding:0 4px}
   .perfil-nome{display:none}
+  .sair-botao{padding:0 10px}
+  .sair-texto{display:none}
 }
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}

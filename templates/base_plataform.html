@@ -30,30 +30,30 @@
 
     <nav class="menu">
       <a href="#" class="ativo">Início</a>
-      <a href="#">Filmes</a>
-      <a href="#">Séries</a>
+      <a href="#Filmes">Filmes</a>
+      <a href="#Series">Séries</a>
     </nav>
 
     <div class="topo-acoes">
-      <!-- Campo de busca -->
-      <div class="busca">
-        <form action="/buscar" method="get" role="search">
-          <label for="campo-busca" class="sr-only">Pesquisar</label>
-          <svg class="busca-icone" viewBox="0 0 24 24" aria-hidden="true">
-            <path
-              d="M10 2a8 8 0 1 0 4.9 14.3l5.4 5.4 1.4-1.4-5.4-5.4A8 8 0 0 0 10 2zm0 2a6 6 0 1 1 0 12 6 6 0 0 1 0-12z" />
-          </svg>
-          <input type="search" name="q" id="campo-busca" placeholder="Digite sua busca...">
-          <button type="submit">Buscar</button>
-        </form>
-      </div>
-
       <!-- Perfil / menu do usuário -->
       {% if user.is_authenticated %}
       <div class="perfil">
         <span class="perfil-avatar">{{ user.username|first|upper }}</span>
         <span class="perfil-nome">{{ user.first_name|default:user.username }}</span>
       </div>
+
+      <!-- Sair (o Django só aceita logout via POST) -->
+      <form method="post" action="{% url 'logout' %}" class="sair">
+        {% csrf_token %}
+        <button type="submit" class="sair-botao" aria-label="Sair da conta" title="Sair">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M10 4H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h4" />
+            <path d="M15 8l4 4-4 4" />
+            <path d="M19 12H9" />
+          </svg>
+          <span class="sair-texto">Sair</span>
+        </button>
+      </form>
       {% endif %}
     </div>
   </header>
@@ -62,19 +62,26 @@
     {% block content %}
 
     <!-- ===== Destaque ===== -->
-    <section class="destaque">
+    <section class="destaque destaque-aranha">
+      <!-- cartaz nítido: só aparece no PC (no celular continua o fundo) -->
+      <img class="destaque-poster" src="/media/cartazes/spider.jpeg" alt="" aria-hidden="true">
       <div class="destaque-conteudo">
         <span class="selo">Em destaque</span>
-        <h1>Título do destaque</h1>
-        <p>Sinopse curta do filme ou série em destaque. Duas ou três linhas já bastam para prender a atenção.</p>
+        <span class="destaque-info">Filme · Ficção Científica · 2026</span>
+        <h1>Homem-Aranha: Um Novo Dia</h1>
+        <p>Quatro anos após Sem Volta para Casa, Peter Parker está sozinho, esquecido pelo mundo e por quem ama.
+          Agora ele luta contra o crime em Nova York enquanto enfrenta novas ameaças e dilemas pessoais.</p>
         <div class="destaque-botoes">
-          <a class="btn btn-claro" href="#">
+          <!-- pk 1 = Homem-Aranha no banco -->
+          <button type="button" class="btn btn-claro" hx-get="{% url 'player' 1 %}" hx-target="#modal-container"
+            hx-swap="innerHTML">
             <svg viewBox="0 0 16 16" aria-hidden="true">
               <path d="M2 0l13 8-13 8z" />
             </svg>
             Assistir
-          </a>
-          <a class="btn btn-vidro" href="#">Mais informações</a>
+          </button>
+          <button type="button" class="btn btn-vidro" hx-get="{% url 'filme_modal' 1 %}" hx-target="#modal-container"
+            hx-swap="innerHTML">Mais informações</button>
         </div>
       </div>
     </section>
@@ -83,12 +90,30 @@
     <section class="fileira">
       <h2>Em alta</h2>
       <div class="trilho">
+
+        <!-- pk 1 = Homem-Aranha no banco -->
+        <article class="card" hx-get="{% url 'filme_modal' 1 %}" hx-target="#modal-container" hx-swap="innerHTML"
+          style="cursor: pointer;">
+
+          <div class="poster b">
+            <img src="/media/cartazes/spider.jpeg" alt="Pôster de Homem-Aranha: Um Novo Dia" loading="lazy">
+            <span class="card-categoria">Ficção Científica</span>
+          </div>
+
+          <h3 class="card-titulo">Homem-Aranha: Um Novo Dia</h3>
+
+          <p class="card-descricao">
+            Peter Parker, sozinho e esquecido pelo mundo, enfrenta novas ameaças em Nova York.
+          </p>
+
+        </article>
+
       </div>
     </section>
 
     <!-- ===== Fileira: Séries ===== -->
     <section class="fileira">
-      <h2>Séries</h2>
+      <h2 id="Series">Séries</h2>
 
       <div class="trilho">
 
@@ -129,7 +154,7 @@
 
     <!-- ===== Fileira: Filmes ===== -->
     <section class="fileira">
-      <h2>Filmes</h2>
+      <h2 id="Filmes">Filmes</h2>
 
       <div class="trilho">
 

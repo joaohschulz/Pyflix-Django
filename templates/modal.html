@@ -44,7 +44,10 @@
             </div>
 
             <div class="modal-acoes">
-                <button type="button" class="modal-assistir">
+                <button type="button" class="modal-assistir"
+                hx-get="{% url 'player' filme.pk %}"
+                hx-target="#modal-container"
+                hx-swap="innerHTML">
                     <span>▶</span> Assistir
                 </button>
             </div>
@@ -117,7 +120,10 @@
                         {% if episodio.descricao %}
                         <p>{{ episodio.descricao }}</p>
                         {% endif %}
-                        <button type="button" class="modal-assistir">
+                        <button type="button" class="modal-assistir"
+                        hx-get="{% url 'episodio_player' episodio.pk %}"
+                        hx-target="#modal-container"
+                        hx-swap="innerHTML">
                             <span>▶</span> Assistir
                         </button>
                     </li>

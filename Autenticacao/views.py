@@ -12,7 +12,10 @@ class RegisterView(CreateView):
 
 class LoginView(DjangoLoginView):
     template_name = 'login.html'
-   
+
+class LogoutView(LogoutView):
+    template_name = 'logout.html'
+    
 
 
 

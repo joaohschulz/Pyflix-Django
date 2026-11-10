@@ -16,6 +16,7 @@ class Filmes(models.Model):
     descricao = models.TextField(verbose_name='Descrição', max_length=1000)
     categoria = models.CharField(max_length=20, choices=CATEGORIA_CHOICES)
     cartaz = models.ImageField(upload_to='cartazes/')
+    video = models.FileField(upload_to='videos/', blank=True)
     def __str__(self):
         return f'Filmes: {self.nome}'
     
@@ -41,6 +42,7 @@ class Episodio(models.Model):
     numero = models.PositiveIntegerField()
     titulo = models.CharField(max_length=100)
     descricao = models.TextField(blank=True)
+    video = models.FileField(upload_to='videos/', blank=True)
     class Meta:
         ordering = ['numero']
     
